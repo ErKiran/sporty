@@ -5,9 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"time"
 
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -26,64 +24,54 @@ func SetUp() *mongo.Client {
 		log.Fatal(err)
 	}
 
-	database := client.Database("nayaMatch")
+	// database := client.Database(os.Getenv("DATABASE"))
 
-	player := database.Collection("player")
-	team := database.Collection("team")
-	match := database.Collection("match")
+	// player := database.Collection("player")
+	// match := database.Collection("match")
 
-	team1 := Team{
-		Name: "Royal Fuckers India",
-	}
+	// player1 := Player{
+	// 	Name: "Kishan",
+	// 	Role: "Player",
+	// 	Team: newTeam.InsertedID.(primitive.ObjectID),
+	// }
 
-	newTeam, err := team.InsertOne(context.TODO(), team1)
-	if err != nil {
-		log.Fatal(err)
-	}
+	// newPlayer, err := player.InsertOne(context.TODO(), player1)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
-	player1 := Player{
-		Name: "Kishan",
-		Role: "Player",
-		Team: newTeam.InsertedID.(primitive.ObjectID),
-	}
+	// fmt.Println("Inserted a single player: ", newPlayer.InsertedID)
 
-	newPlayer, err := player.InsertOne(context.TODO(), player1)
-	if err != nil {
-		log.Fatal(err)
-	}
+	// fmt.Println("Inserted a single team ", newTeam.InsertedID)
 
-	fmt.Println("Inserted a single player: ", newPlayer.InsertedID)
+	// match1 := Match{
+	// 	Title:           "Nepal vs India",
+	// 	Type:            "International",
+	// 	Description:     "Khatra Match Hudai xa hai aaba",
+	// 	Location:        "Nepal",
+	// 	StartDate:       time.Now(),
+	// 	EndDate:         time.Now(),
+	// 	MaximumAttendes: 2000,
+	// 	Teams: []Teams{
+	// 		{
+	// 			TeamID: newTeam.InsertedID.(primitive.ObjectID),
+	// 		},
+	// 	},
+	// 	Players: []Players{
+	// 		{
+	// 			TeamID:   newTeam.InsertedID.(primitive.ObjectID),
+	// 			MatchFee: 1000,
+	// 		},
+	// 	},
+	// }
 
-	fmt.Println("Inserted a single team ", newTeam.InsertedID)
+	// newMatch, err := match.InsertOne(context.TODO(), match1)
 
-	match1 := Match{
-		Title:           "Nepal vs India",
-		Type:            "International",
-		Description:     "Khatra Match Hudai xa hai aaba",
-		Location:        "Nepal",
-		StartDate:       time.Now(),
-		EndDate:         time.Now(),
-		MaximumAttendes: 2000,
-		Teams: []Teams{
-			{
-				TeamID: newTeam.InsertedID.(primitive.ObjectID),
-			},
-		},
-		Players: []Players{
-			{
-				TeamID:   newTeam.InsertedID.(primitive.ObjectID),
-				MatchFee: 1000,
-			},
-		},
-	}
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
-	newMatch, err := match.InsertOne(context.TODO(), match1)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println("Inserted a match ", newMatch.InsertedID)
+	// fmt.Println("Inserted a match ", newMatch.InsertedID)
 
 	fmt.Println("Connected to MongoDB!")
 	return client
