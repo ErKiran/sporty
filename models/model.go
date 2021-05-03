@@ -12,42 +12,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-type Player struct {
-	ID   primitive.ObjectID `bson:"_id,omitempty"`
-	Name string             `bson:"name,omitempty"`
-	Role string             `bson:"role,omitempty"`
-	Team primitive.ObjectID `bson:"team,omitempty"`
-}
-
-type Players struct {
-	ID       primitive.ObjectID `bson:"_id,omitempty"`
-	TeamID   primitive.ObjectID `bson:"team_id,omitempty"`
-	MatchFee int                `bson:"match_fee,omitempty"`
-}
-
-type Teams struct {
-	ID     primitive.ObjectID `bson:"_id,omitempty"`
-	TeamID primitive.ObjectID `bson:"team_id,omitempty"`
-}
-
-type Match struct {
-	ID              primitive.ObjectID `bson:"_id,omitempty"`
-	Title           string             `bson:"title,omitempty"`
-	Type            string             `bson:"type,omitempty"`
-	Description     string             `bson:"description,omitempty"`
-	Location        string             `bson:"location,omitempty"`
-	StartDate       time.Time          `bson:"start_date,omitempty"`
-	EndDate         time.Time          `bson:"end_date,omitempty"`
-	MaximumAttendes int                `bson:"maximum_attendes,omitempty"`
-	Players         []Players          `bson:"players,omitempty"`
-	Teams           []Teams            `bson:"teams,omitempty"`
-}
-
-type Team struct {
-	ID   primitive.ObjectID `bson:"_id,omitempty"`
-	Name string             `bson:"name,omitempty"`
-}
-
 func SetUp() *mongo.Client {
 	clientOptions := options.Client().ApplyURI(os.Getenv("MONGO_URI"))
 
@@ -62,7 +26,7 @@ func SetUp() *mongo.Client {
 		log.Fatal(err)
 	}
 
-	database := client.Database("khatraMatch")
+	database := client.Database("nayaMatch")
 
 	player := database.Collection("player")
 	team := database.Collection("team")
