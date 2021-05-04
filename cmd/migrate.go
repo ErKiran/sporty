@@ -6,7 +6,7 @@ import (
 	"log"
 	"math/rand"
 	"os"
-	"play-it/models"
+	"play-it/app/models"
 	"time"
 
 	"github.com/jaswdr/faker"
@@ -70,12 +70,10 @@ func Migrate() {
 		multiplePlayers = append(multiplePlayers, v)
 	}
 
-	insertManyPlayers, err := player.InsertMany(context.TODO(), multiplePlayers)
+	_, err = player.InsertMany(context.TODO(), multiplePlayers)
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	// playerIDs := insertManyPlayers.InsertedIDs
 
 	var matches []models.Match
 
@@ -103,13 +101,10 @@ func Migrate() {
 		multipleMatches = append(multipleMatches, v)
 	}
 
-	insertManyMatches, err := match.InsertMany(context.TODO(), multipleMatches)
+	_, err = match.InsertMany(context.TODO(), multipleMatches)
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Println("manyMatches", insertManyMatches.InsertedIDs)
-	fmt.Println("many", insertManyPlayers.InsertedIDs)
 
 }
 

@@ -2,7 +2,7 @@ package main
 
 import (
 	"log"
-	"play-it/api"
+	"play-it/app"
 
 	"github.com/joho/godotenv"
 )
@@ -12,5 +12,5 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	api.New()
+	app.Run()
 }
