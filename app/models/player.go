@@ -2,7 +2,6 @@ package models
 
 import (
 	"context"
-	"fmt"
 	"os"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -18,7 +17,7 @@ type Player struct {
 }
 
 type Players struct {
-	ID       primitive.ObjectID `bson:"_id,omitempty" json:"_id"`
+	PlayerID primitive.ObjectID `bson:"playerId,omitempty" json:"playerId"`
 	TeamID   primitive.ObjectID `bson:"team_id,omitempty" json:"teamID"`
 	MatchFee int                `bson:"match_fee,omitempty" json:"matchFee"`
 	Status   string             `bson:"status,omitempty" json:"status"`
@@ -45,7 +44,6 @@ func (data Player) FindPlayersOfTeam(db *mongo.Client, teamId string) ([]Player,
 	}
 	filter := bson.D{{"team", id}}
 	cursor, err := playerCollection.Find(context.TODO(), filter)
-	fmt.Println("cursor", cursor)
 	if err != nil {
 		return nil, err
 	}

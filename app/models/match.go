@@ -7,6 +7,7 @@ import (
 	"os"
 	"time"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -63,4 +64,29 @@ func (data *Match) Create(db *mongo.Client) error {
 	}
 	fmt.Println("newMatch", newMatch.InsertedID)
 	return nil
+}
+
+func (data *Match) Find(db *mongo.Client, playerId string) ([]Match, error) {
+	match := db.Database(os.Getenv("DATABASE")).Collection("match")
+
+	id, err := primitive.ObjectIDFromHex(playerId)
+
+	if err != nil {
+		return nil, err
+	}
+
+	pipeline := bson.M{"players": bson.M{"$elemMatch": bson.M{"playerId": id}}}
+
+	fmt.Println("pipeline", pipeline)
+
+	cursor, err := match.Find(context.Background(), pipeline)
+
+	if err != nil {
+		return nil, err
+	}
+	var matches []Match
+	if err = cursor.All(context.TODO(), &matches); err != nil {
+		return nil, err
+	}
+	return matches, nil
 }

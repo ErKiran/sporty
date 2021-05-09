@@ -10,7 +10,6 @@ import (
 )
 
 type Teams struct {
-	ID     primitive.ObjectID `bson:"_id,omitempty" json:"_id"`
 	TeamID primitive.ObjectID `bson:"team_id,omitempty" json:"teamId"`
 }
 

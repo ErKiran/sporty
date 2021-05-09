@@ -23,6 +23,7 @@ func (server *Server) InitRoutes() {
 	server.setJSON("/teams", server.GetTeams, "GET")
 	server.setJSON("/players/team/{id}", server.GetPlayersByTeamId, "GET")
 	server.setJSON("/match", server.CreateMatch, "POST")
+	server.setJSON("/match/players", server.GetMatchOfPlayer, "GET")
 }
 
 func (server *Server) Run(addr string) {
